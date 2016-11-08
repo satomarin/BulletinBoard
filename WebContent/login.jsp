@@ -32,7 +32,7 @@
 
 	<input type="submit" value="ログイン" /> <br />
 	<a href="./">戻る</a>
-	<c:remove var="accountOrEmail" scope="session"/>
+	<c:remove var="account" scope="session"/>
 </form>
 <div class="copyright">Copyright(c)Sato Marin</div>
 </div>

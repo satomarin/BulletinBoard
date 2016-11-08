@@ -20,7 +20,7 @@
 	<c:if test="${ not empty loginUser }">
 		<a href="./">ホーム</a>
 		<a href="newMessage">新規投稿</a>
-		<a href="settings">設定</a>
+		<a href="setting">設定</a>
 		<a href="logout">ログアウト</a>
 	</c:if>
 </div>
@@ -40,13 +40,44 @@
 			<div class="account-name">
 				<span class="account"><c:out value="${message.account}" /></span>
 				<span class="name"><c:out value="${message.name}" /></span>
-				<span class="title"><c:out value="${message.title}" /></span>
 			</div>
+			<div class="title"><c:out value="${message.title}" /></div>
+			<div class="category"><c:out value="${message.category}" /></div>
 			<div class="text"><c:out value="${message.text}" /></div>
 			<div class="date"><fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+			<br />
+		</div>
+
+		<div class="comment">
+			<c:forEach items="${comments}" var="comment">
+
+				<c:if test ="${comment.messageId == message.messageId}">
+					<div class="comment">
+						<div class="account-name">
+							<span class="account"><c:out value="${comment.account}" /></span>
+							<span class="name"><c:out value="${comment.name}" /></span>
+						</div>
+						<div class="text"><c:out value="${comment.text}" /></div>
+						<div class="date"><fmt:formatDate value="${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+						<br />
+					</div>
+				</c:if>
+			</c:forEach>
+		</div>
+
+		<div class="comments">
+			<div class="message">
+				<form action="comment" method="post" ><br />
+					<textarea name="comment" cols="100" rows="5" class="tweet-box"></textarea>
+					<br />
+					<input type="submit" value="コメントする"">(500文字まで)
+					<input type="hidden" name="messageId" value="${message.messageId}"></input>
+				</form>
+			</div>
 		</div>
 	</c:forEach>
 </div>
+
 
 
 <div class ="copyright">Copyright(c)Marin Sato</div>

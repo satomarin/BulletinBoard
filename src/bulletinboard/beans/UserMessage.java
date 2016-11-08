@@ -6,12 +6,24 @@ import java.util.Date;
 public class UserMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private int id;
 	private String account;
 	private String name;
 	private int messageid;
 	private int userId;
+	private String title;
+	private String category;
 	private String text;
 	private Date insertDate;
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getAccount() {
 		return account;
@@ -43,6 +55,22 @@ public class UserMessage implements Serializable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getText() {

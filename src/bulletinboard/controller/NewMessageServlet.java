@@ -54,13 +54,10 @@ public class NewMessageServlet extends HttpServlet {
 
 			Message message = new Message();
 
+			message.setUserId(user.getId());
 			message.setText(request.getParameter("message"));
 			message.setTitle(request.getParameter("title"));
 			message.setCategory(request.getParameter("category"));
-			System.out.println(message);
-
-
-			message.setUserId(user.getId());
 
 			new MessageService().register(message);
 
