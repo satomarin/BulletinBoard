@@ -20,7 +20,7 @@ public class UserDao {
 
 		PreparedStatement ps = null;
 		try {
-			String sql = "SELECT * FROM users WHERE account = ? AND password = ?";
+			String sql = "SELECT * FROM users WHERE account = ? AND password = ? ";
 
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, account);
@@ -55,6 +55,7 @@ public class UserDao {
 				String name = rs.getString("name");
 				String branchID = rs.getString("branch_id");
 				String departmentID = rs.getString("department_id");
+				Boolean stopped = rs.getBoolean("stopped");
 				Timestamp insertDate = rs.getTimestamp("insert_date");
 				Timestamp updateDate = rs.getTimestamp("update_date");
 
@@ -65,6 +66,7 @@ public class UserDao {
 				user.setName(name);
 				user.setBranchID(branchID);
 				user.setDepartmentID(departmentID);
+				user.setStopped(stopped);
 				user.setInsertDate(insertDate);
 				user.setUpdateDate(updateDate);
 
@@ -88,6 +90,7 @@ public class UserDao {
 			sql.append(", name");
 			sql.append(", branch_id");
 			sql.append(", department_id");
+			sql.append(", stopped");
 			sql.append(", insert_date");
 			sql.append(", update_date");
 			sql.append(") VALUES (");
@@ -96,6 +99,7 @@ public class UserDao {
 			sql.append(", ?"); // name
 			sql.append(", ?"); // branch_id
 			sql.append(", ?"); // department_id
+			sql.append(", ?"); // stopped
 			sql.append(", CURRENT_TIMESTAMP"); // insert_date
 			sql.append(", CURRENT_TIMESTAMP"); // update_date
 			sql.append(")");
@@ -107,6 +111,7 @@ public class UserDao {
 			ps.setString(3, user.getName());
 			ps.setString(4, user.getBranchID());
 			ps.setString(5, user.getDepartmentID());
+			ps.setBoolean(6, user.getStopped());
 
 			ps.executeUpdate();
 
@@ -192,18 +197,50 @@ public class UserDao {
 			sql.append(", update_date");
 			sql.append(" = CURRENT_TIMESTAMP "); // update_date
 
-			sql.append("WHERE id = ? ");
+			sql.append("WHERE id = ?");
 
 			ps = connection.prepareStatement(sql.toString());
 
-			System.out.println(ps);
-
 			ps.setString(1, user.getAccount());
-			ps.setString(2, user.getPassword());
-			ps.setString(3, user.getName());
+			ps.setString(2, user.getName());
+			ps.setString(3, user.getPassword());
 			ps.setString(4, user.getBranchID());
 			ps.setString(5, user.getDepartmentID());
 			ps.setInt(6, user.getId());
+
+
+			System.out.println(ps);
+
+			ps.executeUpdate();
+
+
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+
+
+	//ユーザー停止情報更新
+	public void stop (Connection connection, User user) {
+
+		PreparedStatement ps = null;
+		try{
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE users SET ");
+			sql.append(" stopped");
+			sql.append(" = ? "); // stopped
+
+			sql.append("WHERE id = ?");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setBoolean(1, user.getStopped());
+			ps.setInt(2, user.getId());
+
+			System.out.println(ps);
 
 			ps.executeUpdate();
 

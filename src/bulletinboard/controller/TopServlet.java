@@ -26,6 +26,8 @@ public class TopServlet extends HttpServlet {
 
 		User user = (User) request.getSession().getAttribute("loginUser");
 
+
+		//ログインしていればメッセージフォームを表示
 		boolean isShowMessageForm;
 		if (user != null) {
 			isShowMessageForm = true;

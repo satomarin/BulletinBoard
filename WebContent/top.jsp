@@ -25,15 +25,7 @@
 	</c:if>
 </div>
 
-<c:if test="${ not empty loginUser }">
-	<div class="profile">
-		<div class="name"><h2><c:out value="${loginUser.name}" /></h2></div>
-		<div class="account">
-			@<c:out value="${loginUser.account}" />
-		</div>
-	</div>
-</c:if>
-
+<c:if test="${ isShowMessageForm }">
 <div class="messages">
 	<c:forEach items="${messages}" var="message">
 		<div class="message">
@@ -77,7 +69,7 @@
 		</div>
 	</c:forEach>
 </div>
-
+</c:if>
 
 
 <div class ="copyright">Copyright(c)Marin Sato</div>

@@ -55,6 +55,7 @@ public class SignUpServlet extends HttpServlet {
 			user.setPassword(request.getParameter("password"));
 			user.setBranchID(request.getParameter("branch_id"));
 			user.setDepartmentID(request.getParameter("department_id"));
+			user.setStopped(false);
 
 
 

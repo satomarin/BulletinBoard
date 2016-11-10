@@ -19,6 +19,7 @@ public class LoginService {
 
 			UserDao userDao = new UserDao();
 			String encPassword = CipherUtil.encrypt(password);
+
 			User user = userDao.getUser(connection, account, encPassword);
 
 			commit(connection);

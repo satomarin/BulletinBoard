@@ -13,7 +13,7 @@ public class User implements Serializable {
 	private String name; //名称（ユーザー名称）
 	private String branchID;
 	private String departmentID;
-
+	private boolean stopped;
 	private Date insertDate;
 	private Date updateDate;
 
@@ -64,6 +64,14 @@ public class User implements Serializable {
 
 	public void setDepartmentID(String departmentID){
 		this.departmentID = departmentID;
+	}
+
+	public Boolean getStopped(){
+		return stopped;
+	}
+
+	public void setStopped(Boolean stopped){
+		this.stopped = stopped;
 	}
 
 

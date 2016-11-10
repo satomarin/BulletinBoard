@@ -33,17 +33,16 @@ public class LoginServlet extends HttpServlet {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 
-
 		LoginService loginService = new LoginService();
 		User user = loginService.login(account, password);
 
 		HttpSession session = request.getSession();
 
 
-		if(user != null){
+		if ((user != null) && (user.getStopped() == false)){
+
 			session.setAttribute("loginUser", user);
 			response.sendRedirect("./");
-
 
 		}else{
 

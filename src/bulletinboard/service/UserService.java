@@ -90,6 +90,7 @@ public class UserService {
 
 		Connection connection = null;
 		try {
+
 			connection = getConnection();
 
 			String encPassword = CipherUtil.encrypt(user.getPassword());
@@ -99,6 +100,7 @@ public class UserService {
 			userDao.update(connection, user);
 
 			commit(connection);
+
 		} catch (RuntimeException e) {
 			rollback(connection);
 			throw e;
@@ -110,5 +112,30 @@ public class UserService {
 		}
 
 	}
+
+	//管理画面でユーザーを停止・稼動させる用
+		public void stop(User user) {
+
+			Connection connection = null;
+			try {
+
+				connection = getConnection();
+
+				UserDao userDao = new UserDao();
+				userDao.stop(connection, user);
+
+				commit(connection);
+
+			} catch (RuntimeException e) {
+				rollback(connection);
+				throw e;
+			} catch (Error e) {
+				rollback(connection);
+				throw e;
+			} finally {
+				close(connection);
+			}
+
+		}
 
 }
