@@ -57,8 +57,6 @@ public class SignUpServlet extends HttpServlet {
 			user.setDepartmentID(request.getParameter("department_id"));
 			user.setStopped(false);
 
-
-
 			new UserService().register(user);
 
 			response.sendRedirect("./");

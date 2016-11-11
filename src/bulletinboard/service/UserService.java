@@ -114,28 +114,29 @@ public class UserService {
 	}
 
 	//管理画面でユーザーを停止・稼動させる用
-		public void stop(User user) {
+	public void stop(User user) {
 
-			Connection connection = null;
-			try {
+		Connection connection = null;
+		try {
 
-				connection = getConnection();
+			connection = getConnection();
 
-				UserDao userDao = new UserDao();
-				userDao.stop(connection, user);
+			UserDao userDao = new UserDao();
+			userDao.stop(connection, user);
 
-				commit(connection);
+			commit(connection);
 
-			} catch (RuntimeException e) {
-				rollback(connection);
-				throw e;
-			} catch (Error e) {
-				rollback(connection);
-				throw e;
-			} finally {
-				close(connection);
-			}
-
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
 		}
+
+	}
+
 
 }

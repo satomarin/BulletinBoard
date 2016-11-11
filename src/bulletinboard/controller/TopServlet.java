@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bulletinboard.beans.User;
+import bulletinboard.beans.Message;
 import bulletinboard.beans.UserComment;
 import bulletinboard.beans.UserMessage;
 import bulletinboard.service.CommentService;
@@ -24,25 +24,25 @@ public class TopServlet extends HttpServlet {
 	@Override
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
 
-		User user = (User) request.getSession().getAttribute("loginUser");
+		//User user = (User) request.getSession().getAttribute("loginUser");
 
 
-		//ログインしていればメッセージフォームを表示
-		boolean isShowMessageForm;
-		if (user != null) {
-			isShowMessageForm = true;
-		} else {
-			isShowMessageForm = false;
-		}
+		String category =request.getParameter("category");
+		String time =request.getParameter("time");
 
-		request.setAttribute("isShowMessageForm", isShowMessageForm);
-
-
-		List<UserMessage> messages = new MessageService().getMessage();
+		List<UserMessage> messages = new MessageService().getMessage(category, time);
 		request.setAttribute("messages", messages);
+
+		System.out.println();
+
+		List<Message> messagecatalogs = new MessageService().getMessagecatalog();
+		request.setAttribute("messagecatalogs", messagecatalogs);
+
+		System.out.println(messagecatalogs);
 
 		List<UserComment> comments = new CommentService().getComment();
 		request.setAttribute("comments", comments);
+
 
 
 		request.getRequestDispatcher("/top.jsp").forward(request, response);

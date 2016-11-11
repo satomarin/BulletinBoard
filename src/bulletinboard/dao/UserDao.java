@@ -43,7 +43,7 @@ public class UserDao {
 		}
 	}
 
-	//新規登録用
+	//
 	private List<User> toUserList(ResultSet rs) throws SQLException {
 
 		List<User> ret = new ArrayList<User>();

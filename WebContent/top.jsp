@@ -25,7 +25,39 @@
 	</c:if>
 </div>
 
-<c:if test="${ isShowMessageForm }">
+
+<form action="./" method="get"><br />
+
+	<label for="message_id">カテゴリー</label>
+	<select name="category" size="1">
+		<c:forEach items="${ messagecatalogs }" var="messagecatalog">
+			<option value="${ messagecatalog.category }" >${ messagecatalog.category }</option>
+		</c:forEach>
+	</select>
+	<br />
+
+	<label for="message_id">日付</label>
+	<select name="message_id" size="1">
+		<c:forEach items="${ messages }" var="message">
+			<option value="${ message.id }" >${ message.insertDate }</option>
+		</c:forEach>
+	</select>
+	<select name="message_id" size="1">
+		<c:forEach items="${ messages }" var="message">
+			<option value="${ message.id }" >${ message.insertDate }</option>
+		</c:forEach>
+	</select>
+	<br />
+
+
+	<input type="submit" value="絞り込み" /> <br />
+
+</form>
+
+
+
+
+
 <div class="messages">
 	<c:forEach items="${messages}" var="message">
 		<div class="message">
@@ -69,7 +101,7 @@
 		</div>
 	</c:forEach>
 </div>
-</c:if>
+
 
 
 <div class ="copyright">Copyright(c)Marin Sato</div>

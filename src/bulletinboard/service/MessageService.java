@@ -38,14 +38,14 @@ public class MessageService {
 
 	private static final int LIMIT_NUM = 1000;
 
-	public List<UserMessage> getMessage() {
+	public List<UserMessage> getMessage(String category, String time) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
 			UserMessageDao messageDao = new UserMessageDao();
-			List<UserMessage> ret = messageDao.getUserMessages(connection, LIMIT_NUM);
+			List<UserMessage> ret = messageDao.getUserMessages(connection, LIMIT_NUM, category, time);
 
 			commit(connection);
 
@@ -60,4 +60,31 @@ public class MessageService {
 			close(connection);
 		}
 	}
+
+	public List<Message> getMessagecatalog() {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			MessageDao messageDao = new MessageDao();
+
+			List<Message> ret = messageDao.getMessages(connection, LIMIT_NUM);
+
+			commit(connection);
+
+			return ret;
+
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+
 }

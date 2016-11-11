@@ -15,25 +15,40 @@ import bulletinboard.exception.SQLRuntimeException;
 
 public class UserMessageDao {
 
-	public List<UserMessage> getUserMessages(Connection connection, int num) {
+	public List<UserMessage> getUserMessages(Connection connection, int num, String category, String time) {
 
 		PreparedStatement ps = null;
+
 		try {
 			StringBuilder sql = new StringBuilder();
+
 			sql.append("SELECT * FROM user_message ");
-			sql.append("ORDER BY insert_date DESC limit " + num);
+			if(category != null){
+				sql.append("WHERE category = ?");
+			}
+
+			sql.append("ORDER BY insert_date DESC limit " + num );
 
 			ps = connection.prepareStatement(sql.toString());
+
+
+			if(category != null){
+				ps.setString(1, category);
+			}
+
+			System.out.println(ps);
 
 			ResultSet rs = ps.executeQuery();
 			List<UserMessage> ret = toUserMessageList(rs);
 			return ret;
+
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
 		} finally {
 			close(ps);
 		}
 	}
+
 
 	private List<UserMessage> toUserMessageList(ResultSet rs)throws SQLException {
 
@@ -67,5 +82,6 @@ public class UserMessageDao {
 			close(rs);
 		}
 	}
+
 
 }
