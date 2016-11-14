@@ -6,6 +6,8 @@ import static bulletinboard.utils.DBUtils.*;
 import java.sql.Connection;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import bulletinboard.beans.User;
 import bulletinboard.dao.UserDao;
 import bulletinboard.utils.CipherUtil;
@@ -93,8 +95,10 @@ public class UserService {
 
 			connection = getConnection();
 
-			String encPassword = CipherUtil.encrypt(user.getPassword());
-			user.setPassword(encPassword);
+			if (!StringUtils.isEmpty(user.getPassword())){
+				String encPassword = CipherUtil.encrypt(user.getPassword());
+				user.setPassword(encPassword);
+			}
 
 			UserDao userDao = new UserDao();
 			userDao.update(connection, user);

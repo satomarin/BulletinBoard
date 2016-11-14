@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import bulletinboard.beans.User;
 import bulletinboard.exception.SQLRuntimeException;
 
@@ -183,13 +185,18 @@ public class UserDao {
 		PreparedStatement ps = null;
 		try{
 			StringBuilder sql = new StringBuilder();
+
 			sql.append("UPDATE users SET ");
 			sql.append(" account");
 			sql.append(" = ? "); // account
 			sql.append(", name");
 			sql.append(" = ? "); // name
-			sql.append(", password");
-			sql.append(" = ? "); // password
+
+			if(!StringUtils.isEmpty(user.getPassword())){
+				sql.append(", password");
+				sql.append(" = ? "); // password
+			}
+
 			sql.append(", branch_id");
 			sql.append(" = ? "); // branch_id
 			sql.append(", department_id");
@@ -201,16 +208,28 @@ public class UserDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
+
 			ps.setString(1, user.getAccount());
 			ps.setString(2, user.getName());
-			ps.setString(3, user.getPassword());
-			ps.setString(4, user.getBranchID());
-			ps.setString(5, user.getDepartmentID());
-			ps.setInt(6, user.getId());
+
+			if(!StringUtils.isEmpty(user.getPassword())){
+				ps.setString(3, user.getPassword());
+				ps.setString(4, user.getBranchID());
+				ps.setString(5, user.getDepartmentID());
+				ps.setInt(6, user.getId());
+
+			}else{
+				ps.setString(3, user.getBranchID());
+				ps.setString(4, user.getDepartmentID());
+				ps.setInt(5, user.getId());
+
+			}
+
+
+
 
 
 			System.out.println(ps);
-
 			ps.executeUpdate();
 
 

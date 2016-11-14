@@ -11,6 +11,7 @@
 	<link href="./css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
 <div class="main-contents">
 <div class="header">
 	<c:if test="${ empty loginUser }">
@@ -56,7 +57,17 @@
 
 
 
-
+<div class="main-contents">
+<c:if test="${ not empty errorMessages }">
+	<div class="errorMessages">
+		<ul>
+			<c:forEach items="${errorMessages}" var="message">
+				<li><c:out value="${message}" />
+			</c:forEach>
+		</ul>
+	</div>
+	<c:remove var="errorMessages" scope="session"/>
+</c:if>
 
 <div class="messages">
 	<c:forEach items="${messages}" var="message">
@@ -102,6 +113,7 @@
 	</c:forEach>
 </div>
 
+</div>
 
 
 <div class ="copyright">Copyright(c)Marin Sato</div>

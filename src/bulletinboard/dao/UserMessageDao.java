@@ -23,6 +23,7 @@ public class UserMessageDao {
 			StringBuilder sql = new StringBuilder();
 
 			sql.append("SELECT * FROM user_message ");
+
 			if(category != null){
 				sql.append("WHERE category = ?");
 			}

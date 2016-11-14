@@ -12,6 +12,18 @@
 </head>
 <body>
 
+<div class="main-contents">
+<c:if test="${ not empty errorMessages }">
+	<div class="errorMessages">
+		<ul>
+			<c:forEach items="${errorMessages}" var="message">
+				<li><c:out value="${message}" />
+			</c:forEach>
+		</ul>
+	</div>
+	<c:remove var="errorMessages" scope="session"/>
+</c:if>
+
 <div class="form-area">
 	<c:if test="${ isShowMessageForm }">
 		<form action="newMessage" method="post"><br />
@@ -29,6 +41,7 @@
 			<input type="submit" value="投稿"">
 		</form>
 	</c:if>
+</div>
 </div>
 
 <a href="./">戻る</a>

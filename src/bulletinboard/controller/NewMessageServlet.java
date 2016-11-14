@@ -64,20 +64,38 @@ public class NewMessageServlet extends HttpServlet {
 			response.sendRedirect("./");
 		} else {
 			session.setAttribute("errorMessages", messages);
-			response.sendRedirect("./");
+			response.sendRedirect("newMessage");
 		}
 	}
 
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
 
+		String title = request.getParameter("title");
+		String category = request.getParameter("category");
 		String message = request.getParameter("message");
 
-		if (StringUtils.isEmpty(message) == true) {
+
+		if (StringUtils.isEmpty(title) == true) {
+			messages.add("タイトルを入力してください");
+		}
+		if (StringUtils.isEmpty(category) == true){
+			messages.add("カテゴリーを入力してください");
+		}
+		if (StringUtils.isEmpty(message)){
 			messages.add("メッセージを入力してください");
 		}
-		if (1000 < message.length()) {
-			messages.add("1000文字以下で入力してください");
+
+
+		if (50 < title.length()){
+			messages.add("タイトルは50文字以下で入力してください");
 		}
+		if (10 < category.length()){
+			messages.add("カテゴリーは10文字以下で入力してください");
+		}
+		if (1000 < message.length()){
+			messages.add("本文は1000文字以下で入力してください");
+		}
+
 		if (messages.size() == 0) {
 			return true;
 		} else {

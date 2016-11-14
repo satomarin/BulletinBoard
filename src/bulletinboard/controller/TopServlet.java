@@ -24,7 +24,6 @@ public class TopServlet extends HttpServlet {
 	@Override
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
 
-		//User user = (User) request.getSession().getAttribute("loginUser");
 
 
 		String category =request.getParameter("category");
