@@ -1,6 +1,7 @@
 package bulletinboard.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,23 +26,36 @@ public class TopServlet extends HttpServlet {
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
 
 
-
+		//人が選択
 		String category =request.getParameter("category");
-		String time =request.getParameter("time");
+		String firstTime =request.getParameter("firstTime");
+		String lastTime =request.getParameter("lastTime");
 
-		List<UserMessage> messages = new MessageService().getMessage(category, time);
+
+		//date→String
+		//nullだったら最古・最新の日数を格納
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		if (firstTime != null){
+			firstTime = sdf1.format(new MessageService().getOldestDate());
+		}
+		if (lastTime != null){
+			lastTime = sdf1.format(new MessageService().getLatestDate());
+		}
+
+		System.out.println(firstTime);
+		System.out.println(lastTime);
+
+		//絞込み
+		List<UserMessage> messages = new MessageService().getMessage(category,firstTime,lastTime);
 		request.setAttribute("messages", messages);
 
-		System.out.println();
+		//カテゴリーごとのメッセージ
+		List<Message> messageCatalogs = new MessageService().getMessageCatalog();
+		request.setAttribute("messageCatalogs", messageCatalogs);
 
-		List<Message> messagecatalogs = new MessageService().getMessagecatalog();
-		request.setAttribute("messagecatalogs", messagecatalogs);
-
-		System.out.println(messagecatalogs);
-
+		//コメント取得
 		List<UserComment> comments = new CommentService().getComment();
 		request.setAttribute("comments", comments);
-
 
 
 		request.getRequestDispatcher("/top.jsp").forward(request, response);

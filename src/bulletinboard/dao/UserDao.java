@@ -225,10 +225,6 @@ public class UserDao {
 
 			}
 
-
-
-
-
 			System.out.println(ps);
 			ps.executeUpdate();
 

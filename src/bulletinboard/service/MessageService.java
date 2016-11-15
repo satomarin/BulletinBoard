@@ -4,6 +4,7 @@ import static bulletinboard.utils.CloseableUtil.*;
 import static bulletinboard.utils.DBUtils.*;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.util.List;
 
 import bulletinboard.beans.Message;
@@ -38,14 +39,14 @@ public class MessageService {
 
 	private static final int LIMIT_NUM = 1000;
 
-	public List<UserMessage> getMessage(String category, String time) {
+	public List<UserMessage> getMessage(String category, String firstTime, String lastTime) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
 			UserMessageDao messageDao = new UserMessageDao();
-			List<UserMessage> ret = messageDao.getUserMessages(connection, LIMIT_NUM, category, time);
+			List<UserMessage> ret = messageDao.getUserMessageCategories(connection, LIMIT_NUM, category, firstTime, lastTime);
 
 			commit(connection);
 
@@ -61,7 +62,8 @@ public class MessageService {
 		}
 	}
 
-	public List<Message> getMessagecatalog() {
+
+	public List<Message> getMessageCatalog() {
 
 		Connection connection = null;
 		try {
@@ -85,6 +87,58 @@ public class MessageService {
 			close(connection);
 		}
 	}
+
+
+	//最新の日付
+	public Date getOldestDate() {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			UserMessageDao userMessageDao = new UserMessageDao();
+			Date OldestTime = userMessageDao.getOldestDate(connection);
+			commit(connection);
+			return OldestTime;
+
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+
+
+	//最新の日付
+	public Date getLatestDate() {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			UserMessageDao userMessageDao = new UserMessageDao();
+			Date LatestTime = userMessageDao.getLatestDate(connection);
+
+			commit(connection);
+			return LatestTime;
+
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+
 
 
 }

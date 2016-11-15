@@ -54,7 +54,7 @@ public class MessageDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 
-			sql.append("SELECT * FROM messages group by category");
+			sql.append("SELECT * FROM messages group by category ");
 
 			ps = connection.prepareStatement(sql.toString());
 
@@ -92,5 +92,7 @@ public class MessageDao {
 		}
 
 	}
+
+
 
 }

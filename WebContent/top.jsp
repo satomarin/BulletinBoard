@@ -31,30 +31,26 @@
 
 	<label for="message_id">カテゴリー</label>
 	<select name="category" size="1">
-		<c:forEach items="${ messagecatalogs }" var="messagecatalog">
-			<option value="${ messagecatalog.category }" >${ messagecatalog.category }</option>
+		<c:forEach items="${ messageCatalogs }" var="messageCatalog">
+			<option value="${ messageCatalog.category }" >${ messageCatalog.category }</option>
 		</c:forEach>
 	</select>
 	<br />
 
+	<br />
+
 	<label for="message_id">日付</label>
-	<select name="message_id" size="1">
-		<c:forEach items="${ messages }" var="message">
-			<option value="${ message.id }" >${ message.insertDate }</option>
-		</c:forEach>
-	</select>
-	<select name="message_id" size="1">
-		<c:forEach items="${ messages }" var="message">
-			<option value="${ message.id }" >${ message.insertDate }</option>
-		</c:forEach>
-	</select>
+
+		<p><input type="date" name="firstTime" value="${ message.insert_date }"></p>
+
+		<p><input type="date" name="lastTime" value="${ message.insert_date }" ></p>
+
 	<br />
 
 
 	<input type="submit" value="絞り込み" /> <br />
 
 </form>
-
 
 
 <div class="main-contents">

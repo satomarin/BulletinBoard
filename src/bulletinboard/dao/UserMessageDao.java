@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import bulletinboard.beans.UserMessage;
@@ -15,26 +16,30 @@ import bulletinboard.exception.SQLRuntimeException;
 
 public class UserMessageDao {
 
-	public List<UserMessage> getUserMessages(Connection connection, int num, String category, String time) {
+	public List<UserMessage> getUserMessageCategories(Connection connection, int num, String category, String firstTime, String lastTime) {
 
 		PreparedStatement ps = null;
 
 		try {
 			StringBuilder sql = new StringBuilder();
 
-			sql.append("SELECT * FROM user_message ");
+			sql.append("SELECT * FROM user_message WHERE insert_date BETWEEN ? AND ? ");
 
 			if(category != null){
-				sql.append("WHERE category = ?");
+				sql.append("AND category = ? ");
 			}
 
 			sql.append("ORDER BY insert_date DESC limit " + num );
 
 			ps = connection.prepareStatement(sql.toString());
 
-
 			if(category != null){
-				ps.setString(1, category);
+				ps.setString(1, firstTime);
+				ps.setString(2, lastTime);
+				ps.setString(3, category);
+			}else{
+				ps.setString(1, firstTime);
+				ps.setString(2, lastTime);
 			}
 
 			System.out.println(ps);
@@ -42,6 +47,64 @@ public class UserMessageDao {
 			ResultSet rs = ps.executeQuery();
 			List<UserMessage> ret = toUserMessageList(rs);
 			return ret;
+
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+	//最古の日付
+	public Date getOldestDate(Connection connection) {
+
+		PreparedStatement ps = null;
+
+		try {
+			StringBuilder sql = new StringBuilder();
+
+			sql.append("SELECT * FROM user_message order by insert_date limit 1;");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ResultSet rs = ps.executeQuery();
+
+			List<UserMessage> userMessage = toUserMessageList(rs);
+
+			if (userMessage.isEmpty() == true) {
+				return null;
+			}else {
+				return userMessage.get(0).getInsertDate();
+			}
+
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+	//最新の日付
+	public Date getLatestDate(Connection connection) {
+
+		PreparedStatement ps = null;
+
+		try {
+			StringBuilder sql = new StringBuilder();
+
+			sql.append("SELECT * FROM user_message order by insert_date DESC LIMIT 1;");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ResultSet rs = ps.executeQuery();
+
+			List<UserMessage> userMessage = toUserMessageList(rs);
+
+			if (userMessage.isEmpty() == true) {
+				return null;
+			}else {
+				return userMessage.get(0).getInsertDate();
+			}
 
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);

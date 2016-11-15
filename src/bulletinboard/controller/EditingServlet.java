@@ -60,6 +60,7 @@ public class EditingServlet extends HttpServlet {
 
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
+		//User editUser = request.get(editUser);
 
 
 		if (isValid(request, messages) == true) {
@@ -69,7 +70,6 @@ public class EditingServlet extends HttpServlet {
 			user.setAccount(request.getParameter("account"));
 			user.setName(request.getParameter("name"));
 			user.setPassword(request.getParameter("password"));
-			System.out.println(request.getParameter("password"));
 			user.setBranchID(request.getParameter("branch_id"));
 			user.setDepartmentID(request.getParameter("department_id"));
 			new UserService().update(user);
@@ -79,7 +79,7 @@ public class EditingServlet extends HttpServlet {
 
 		} else {
 			session.setAttribute("errorMessages", messages);
-			response.sendRedirect("./");
+			//response.sendRedirect("editing?id="+ editUser.getId());
 		}
 	}
 
