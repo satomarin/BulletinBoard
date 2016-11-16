@@ -92,9 +92,9 @@ public class SignUpServlet extends HttpServlet {
 		if (!account.matches("^[a-zA-Z0-9]{6,20}$")){
 			messages.add("ログインIDは[a-zA-Z0-9]の6文字以上20文字以下で入力してください");
 		}
-		//if (!password.matches("^[a-zA-Z0-9!-/:-@¥[-`{-~]+{6,255}$")){
-			//messages.add("パスワードは記号を含む半角文字の6文字以上255文字以下で入力してください");
-		//}
+		if (!password.matches("^[a-zA-Z0-9!-/:-@¥[-`{-~]+$ {6,255}$")){
+			messages.add("パスワードは記号を含む半角文字の6文字以上255文字以下で入力してください");
+		}
 		if (10 < name.length()){
 			messages.add("名称は10文字以下で入力してください");
 		}

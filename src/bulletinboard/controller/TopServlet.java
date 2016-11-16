@@ -42,8 +42,6 @@ public class TopServlet extends HttpServlet {
 			lastTime = sdf1.format(new MessageService().getLatestDate());
 		}
 
-		System.out.println(firstTime);
-		System.out.println(lastTime);
 
 		//絞込み
 		List<UserMessage> messages = new MessageService().getMessage(category,firstTime,lastTime);
