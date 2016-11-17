@@ -37,6 +37,8 @@ public class EditingServlet extends HttpServlet {
 		request.setAttribute("branches", branches);
 		request.setAttribute("departments", departments);
 
+		HttpSession session = request.getSession();
+
 
 		//ユーザー情報編集にてどこの編集が押されたのか、ユーザーIDをもらっている
 		String editId =request.getParameter("id");
@@ -45,6 +47,7 @@ public class EditingServlet extends HttpServlet {
 		User editUser = userService.editing(editId);
 
 		request.setAttribute("editUser", editUser);
+		session.setAttribute("editUser", editUser);
 
 		//jspファイルをgetする
 		request.getRequestDispatcher("editing.jsp").forward(request, response);
@@ -60,8 +63,7 @@ public class EditingServlet extends HttpServlet {
 
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
-		//User editUser = request.get(editUser);
-
+        User editUser = (User) session.getAttribute("editUser");
 
 		if (isValid(request, messages) == true) {
 
@@ -76,10 +78,9 @@ public class EditingServlet extends HttpServlet {
 
 
 			response.sendRedirect("setting");
-
 		} else {
 			session.setAttribute("errorMessages", messages);
-			//response.sendRedirect("editing?id="+ editUser.getId());
+			response.sendRedirect("editing?id="+ editUser.getId());
 		}
 	}
 
@@ -96,8 +97,22 @@ public class EditingServlet extends HttpServlet {
 		if (StringUtils.isEmpty(name) == true) {
 			messages.add("名前を入力してください");
 		}
+		System.out.println(password.length());
+		if (!password.matches("^[a-zA-Z0-9!-/:-@¥\\[-`{-~]+$") && (StringUtils.isEmpty(password) == false)){
+			if (password.length() < 6 && password.length() > 255){
+				messages.add("パスワードは記号を含む半角文字の6文字以上255文字以下で入力してください");
+			}
+			messages.add("パスワードは記号を含む半角文字で入力してください");
+		}
 		if (!password.equals(confirmationPassword)){
 			messages.add("確認用パスワードが間違っています");
+		}
+		if (!account.matches("^[a-zA-Z0-9]{6,20}$") && (StringUtils.isEmpty(account) == false)){
+			messages.add("ログインIDは[a-zA-Z0-9]の6文字以上20文字以下で入力してください");
+		}
+
+		if (10 < name.length() && (StringUtils.isEmpty(name) == false)){
+			messages.add("名前は10文字以下で入力してください");
 		}
 
 

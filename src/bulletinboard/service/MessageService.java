@@ -139,6 +139,32 @@ public class MessageService {
 	}
 
 
+	public List<Message> delete(int messageId) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			MessageDao messageDao = new MessageDao();
+
+			List<Message> ret = messageDao.delete(connection, messageId, LIMIT_NUM);
+
+			commit(connection);
+
+			return ret;
+
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+
 
 
 }

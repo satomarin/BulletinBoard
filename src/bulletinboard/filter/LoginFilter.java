@@ -35,10 +35,12 @@ public class LoginFilter implements Filter {
 			return ;
 		}
 
+		System.out.println("ログインフィルターを終了");
+
 
 		chain.doFilter(request, response); // サーブレットを実行
 
-		System.out.println("ログインフィルターを終了");
+
 	}
 
 	@Override

@@ -94,5 +94,33 @@ public class MessageDao {
 	}
 
 
+	public List<Message> delete(Connection connection, int messageId, int limitNum) {
+
+		PreparedStatement ps = null;
+
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("DELETE  FROM ");
+			sql.append("messages WHERE id = ?");
+			ps = connection.prepareStatement(sql.toString());
+			ps.setInt(1, messageId);
+
+
+
+			ps.executeUpdate();
+
+			System.out.println(ps);
+
+
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+		return null;
+
+	}
+
+
 
 }

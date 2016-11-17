@@ -6,6 +6,7 @@ import static bulletinboard.utils.CloseableUtil.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import bulletinboard.beans.Comment;
 import bulletinboard.exception.SQLRuntimeException;
@@ -43,6 +44,32 @@ public class CommentDao {
 		} finally {
 			close(ps);
 		}
+	}
+
+	public List<Comment> delete(Connection connection, int commentsId, int limitNum) {
+
+		PreparedStatement ps = null;
+
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("DELETE  FROM ");
+			sql.append("comments WHERE id = ?");
+			ps = connection.prepareStatement(sql.toString());
+			ps.setInt(1, commentsId);
+
+
+
+			ps.executeUpdate();
+
+			System.out.println(ps);
+
+
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+		return null;
 	}
 
 }

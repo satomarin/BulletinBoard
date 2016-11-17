@@ -60,4 +60,30 @@ public class TopServlet extends HttpServlet {
 
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+
+
+
+		//メッセージのIDを取得　（削除用）
+		//int messageId = (Integer.parseInt(request.getParameter("id")));
+		String messagesId = request.getParameter("id");
+		//コメントのIDを取得　（削除用）
+		String commentId = request.getParameter("commentId");
+
+
+		if ( !messagesId.isEmpty() ){
+			int messageId = (Integer.parseInt(request.getParameter("id")));
+			new MessageService().delete(messageId);
+		}
+
+		if ( !commentId.isEmpty() ){
+			int commentsId = (Integer.parseInt(request.getParameter("commentId")));
+			new CommentService().delete(commentsId);
+		}
+
+
+
+	}
+
 }

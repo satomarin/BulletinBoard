@@ -45,7 +45,11 @@ public class AuthorityFilter implements Filter {
 
 		}
 
+		System.out.println("管理者フィルターを終了");
+
 		chain.doFilter(request, response); // サーブレットを実行
+
+
 
 	}
 

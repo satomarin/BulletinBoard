@@ -16,12 +16,13 @@
 <div class="header">
 	<c:if test="${ empty loginUser }">
 		<a href="login">ログイン</a>
-		<a href="signup">登録する</a>
+
 	</c:if>
 	<c:if test="${ not empty loginUser }">
 		<a href="./">ホーム</a>
 		<a href="newMessage">新規投稿</a>
 		<a href="setting">設定</a>
+		<a href="signup">登録する</a>
 		<a href="logout">ログアウト</a>
 	</c:if>
 </div>
@@ -67,6 +68,7 @@
 
 <div class="messages">
 	<c:forEach items="${messages}" var="message">
+
 		<div class="message">
 			<div class="account-name">
 				<span class="account"><c:out value="${message.account}" /></span>
@@ -77,6 +79,14 @@
 			<div class="text"><c:out value="${message.text}" /></div>
 			<div class="date"><fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 			<br />
+
+
+			<form action="index.jsp" method="post" >
+			<input type="hidden" name="id" value="${message.messageId}"></input>
+				<input type="submit"  value="この投稿を削除" />
+			</form>
+
+
 		</div>
 
 		<div class="comment">
@@ -91,6 +101,12 @@
 						<div class="text"><c:out value="${comment.text}" /></div>
 						<div class="date"><fmt:formatDate value="${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 						<br />
+
+						<form action="index.jsp" method="post" >
+						<input type="hidden" name="commentId" value="${comment.commentId}"></input>
+							<input type="submit" value="このコメントを削除" /> <br />
+						</form>
+
 					</div>
 				</c:if>
 			</c:forEach>
