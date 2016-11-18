@@ -68,14 +68,24 @@ public class SignUpServlet extends HttpServlet {
 	}
 
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
+		
 		String account = request.getParameter("account");
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String confirmationPassword = request.getParameter("confirmationPassword");
 
+		//取得
+		User users = new UserService().overlap(account);
+
+
+
 		if (StringUtils.isEmpty(account) == true) {
 			messages.add("ログインIDを入力してください");
 		}
+		if ( users != null ) {
+			messages.add("アカウントが重複しています");
+		}
+
 		if (StringUtils.isEmpty(name) == true) {
 			messages.add("名前を入力してください");
 		}
@@ -92,9 +102,14 @@ public class SignUpServlet extends HttpServlet {
 		if (!account.matches("^[a-zA-Z0-9]{6,20}$") && (StringUtils.isEmpty(account) == false)){
 			messages.add("ログインIDは[a-zA-Z0-9]の6文字以上20文字以下で入力してください");
 		}
-		if (!password.matches("^[a-zA-Z0-9]+\\p{Punct}{6,255}$") && (StringUtils.isEmpty(password) == false)){
-			messages.add("パスワードは記号を含む半角文字の6文字以上255文字以下で入力してください");
+
+		if (!password.matches("^[a-zA-Z0-9!-/:-@¥\\[-`{-~]+$") && (StringUtils.isEmpty(password) == false)){
+			if (password.length() < 6 && password.length() > 255){
+				messages.add("パスワードは記号を含む半角文字の6文字以上255文字以下で入力してください");
+			}
+			messages.add("パスワードは記号を含む半角文字で入力してください");
 		}
+
 		if (10 < name.length() && (StringUtils.isEmpty(name) == false)){
 			messages.add("名前は10文字以下で入力してください");
 		}

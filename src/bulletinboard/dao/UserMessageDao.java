@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import bulletinboard.beans.UserMessage;
 import bulletinboard.exception.SQLRuntimeException;
 
@@ -25,7 +27,7 @@ public class UserMessageDao {
 
 			sql.append("SELECT * FROM user_message WHERE insert_date BETWEEN ? AND ? ");
 
-			if(category != null){
+			if(!StringUtils.isEmpty(category)){
 				sql.append("AND category = ? ");
 			}
 
@@ -33,7 +35,7 @@ public class UserMessageDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			if(category != null){
+			if(!StringUtils.isEmpty(category)){
 				ps.setString(1, firstTime);
 				ps.setString(2, lastTime);
 				ps.setString(3, category);

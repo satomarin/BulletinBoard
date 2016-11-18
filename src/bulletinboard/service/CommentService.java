@@ -61,7 +61,7 @@ public class CommentService {
 		}
 	}
 
-	public List<Comment> delete(int commentsId) {
+	public List<Comment> delete(int commentId) {
 
 
 		Connection connection = null;
@@ -70,7 +70,7 @@ public class CommentService {
 
 			CommentDao commentDao = new CommentDao();
 
-			List<Comment> ret = commentDao.delete(connection, commentsId, LIMIT_NUM);
+			List<Comment> ret = commentDao.delete(connection, commentId, LIMIT_NUM);
 
 			commit(connection);
 

@@ -32,8 +32,15 @@
 
 	<label for="message_id">カテゴリー</label>
 	<select name="category" size="1">
+		<option value="">カテゴリーを選択してください</option>
 		<c:forEach items="${ messageCatalogs }" var="messageCatalog">
-			<option value="${ messageCatalog.category }" >${ messageCatalog.category }</option>
+
+			<c:if test ="${ category ==  messageCatalog.category }">
+				<option value="${ messageCatalog.category }" selected>${ messageCatalog.category }</option>
+			</c:if>
+			<c:if test ="${ category !=  messageCatalog.category }">
+				<option value="${ messageCatalog.category }" >${ messageCatalog.category }</option>
+			</c:if>
 		</c:forEach>
 	</select>
 	<br />
@@ -42,9 +49,9 @@
 
 	<label for="message_id">日付</label>
 
-		<p><input type="date" name="firstTime" value="${ message.insert_date }"></p>
 
-		<p><input type="date" name="lastTime" value="${ message.insert_date }" ></p>
+		<p><input type="date" name="firstTime" value="${ firstTime }" ></p>
+		<p><input type="date" name="lastTime" value="${ lastTime }" ></p>
 
 	<br />
 
@@ -81,9 +88,12 @@
 			<br />
 
 
-			<form action="index.jsp" method="post" >
-			<input type="hidden" name="id" value="${message.messageId}"></input>
-				<input type="submit"  value="この投稿を削除" />
+			<form action="deleteMessage" method="post" >
+
+					<c:if test="${editUsers.departmentID == 2}">
+					<input type="hidden" name="id" value="${message.messageId}"></input>
+					<input type="submit"  value="この投稿を削除" />
+					</c:if>
 			</form>
 
 
@@ -102,7 +112,7 @@
 						<div class="date"><fmt:formatDate value="${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 						<br />
 
-						<form action="index.jsp" method="post" >
+						<form action="deleteComment" method="post" >
 						<input type="hidden" name="commentId" value="${comment.commentId}"></input>
 							<input type="submit" value="このコメントを削除" /> <br />
 						</form>

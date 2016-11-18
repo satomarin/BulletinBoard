@@ -46,7 +46,7 @@ public class CommentDao {
 		}
 	}
 
-	public List<Comment> delete(Connection connection, int commentsId, int limitNum) {
+	public List<Comment> delete(Connection connection, int commentId, int limitNum) {
 
 		PreparedStatement ps = null;
 
@@ -55,7 +55,7 @@ public class CommentDao {
 			sql.append("DELETE  FROM ");
 			sql.append("comments WHERE id = ?");
 			ps = connection.prepareStatement(sql.toString());
-			ps.setInt(1, commentsId);
+			ps.setInt(1, commentId);
 
 
 

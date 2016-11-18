@@ -53,8 +53,6 @@ public class EditingServlet extends HttpServlet {
 		request.getRequestDispatcher("editing.jsp").forward(request, response);
 
 
-
-
 	}
 
 	@Override
@@ -86,10 +84,21 @@ public class EditingServlet extends HttpServlet {
 
 
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
+
 		String account = request.getParameter("account");
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String confirmationPassword = request.getParameter("confirmationPassword");
+
+
+		HttpSession session = request.getSession();
+        User loginUser = (User) session.getAttribute("loginUser");
+
+
+		//取得
+		User users = new UserService().overlap(account);
+
+
 
 		if (StringUtils.isEmpty(account) == true) {
 			messages.add("ログインIDを入力してください");
@@ -97,7 +106,11 @@ public class EditingServlet extends HttpServlet {
 		if (StringUtils.isEmpty(name) == true) {
 			messages.add("名前を入力してください");
 		}
-		System.out.println(password.length());
+		if ( users != null && users.getId() != loginUser.getId()) {
+			messages.add("アカウントが重複しています");
+		}
+
+
 		if (!password.matches("^[a-zA-Z0-9!-/:-@¥\\[-`{-~]+$") && (StringUtils.isEmpty(password) == false)){
 			if (password.length() < 6 && password.length() > 255){
 				messages.add("パスワードは記号を含む半角文字の6文字以上255文字以下で入力してください");

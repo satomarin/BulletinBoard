@@ -9,12 +9,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
 
 import bulletinboard.beans.Message;
+import bulletinboard.beans.User;
 import bulletinboard.beans.UserComment;
 import bulletinboard.beans.UserMessage;
 import bulletinboard.service.CommentService;
 import bulletinboard.service.MessageService;
+import bulletinboard.service.UserService;
 
 
 
@@ -28,19 +33,37 @@ public class TopServlet extends HttpServlet {
 
 		//人が選択
 		String category =request.getParameter("category");
+		request.setAttribute("category", category);
+
 		String firstTime =request.getParameter("firstTime");
+
 		String lastTime =request.getParameter("lastTime");
+
+
 
 
 		//date→String
 		//nullだったら最古・最新の日数を格納
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		if (firstTime != null){
+		if (StringUtils.isEmpty(firstTime)){
 			firstTime = sdf1.format(new MessageService().getOldestDate());
+		} else {
+			request.setAttribute("firstTime", firstTime);
 		}
-		if (lastTime != null){
+		if (StringUtils.isEmpty(lastTime)){
 			lastTime = sdf1.format(new MessageService().getLatestDate());
+		} else {
+			request.setAttribute("lastTime", lastTime);
 		}
+
+
+		//ユーザー
+		List<User> users = new UserService().getUser();
+		request.setAttribute("users", users);
+
+		HttpSession session = request.getSession();
+        User editUsers = (User) session.getAttribute("loginUser");
+        request.setAttribute("editUsers", editUsers);
 
 
 		//絞込み
@@ -51,38 +74,13 @@ public class TopServlet extends HttpServlet {
 		List<Message> messageCatalogs = new MessageService().getMessageCatalog();
 		request.setAttribute("messageCatalogs", messageCatalogs);
 
+
 		//コメント取得
 		List<UserComment> comments = new CommentService().getComment();
 		request.setAttribute("comments", comments);
 
 
 		request.getRequestDispatcher("/top.jsp").forward(request, response);
-
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
-
-
-
-		//メッセージのIDを取得　（削除用）
-		//int messageId = (Integer.parseInt(request.getParameter("id")));
-		String messagesId = request.getParameter("id");
-		//コメントのIDを取得　（削除用）
-		String commentId = request.getParameter("commentId");
-
-
-		if ( !messagesId.isEmpty() ){
-			int messageId = (Integer.parseInt(request.getParameter("id")));
-			new MessageService().delete(messageId);
-		}
-
-		if ( !commentId.isEmpty() ){
-			int commentsId = (Integer.parseInt(request.getParameter("commentId")));
-			new CommentService().delete(commentsId);
-		}
-
-
 
 	}
 

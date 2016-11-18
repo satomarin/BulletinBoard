@@ -142,5 +142,29 @@ public class UserService {
 
 	}
 
+	//編集画面でアカウントが重複しているかどうか
+	public User overlap(String account) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			UserDao userDao = new UserDao();
+			User user = userDao.overlap(connection, account);
+
+			commit(connection);
+
+			return user;
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
 
 }

@@ -255,7 +255,6 @@ public class UserDao {
 			ps.setBoolean(1, user.getStopped());
 			ps.setInt(2, user.getId());
 
-			System.out.println(ps);
 
 			ps.executeUpdate();
 
@@ -266,4 +265,56 @@ public class UserDao {
 			close(ps);
 		}
 	}
+
+
+
+
+	public User overlap(Connection connection, String account) {
+
+		PreparedStatement ps = null;
+		try {
+			String sql = "SELECT * FROM users where account = ?";
+
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, account);
+
+			ResultSet rs = ps.executeQuery();
+
+			List<User> userList = toUserList(rs);
+			if (userList.isEmpty() == true) {
+				return null;
+			}else {
+				return userList.get(0);
+			}
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+
+
+//	//ユーザー削除
+//	public void delete(Connection connection , User user) {
+//
+//		PreparedStatement ps = null;
+//		try {
+//			StringBuilder sql = new StringBuilder();
+//			//SQL文を用意
+//			sql.append("DELETE FROM users WHERE id = ? ");
+//			//生成
+//			ps = connection.prepareStatement(sql.toString());
+//			ps.setInt(1, user.getId());
+//
+//
+//			ps.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			throw new SQLRuntimeException(e);
+//
+//		} finally {
+//			close(ps);
+//		}
+//	}
 }
