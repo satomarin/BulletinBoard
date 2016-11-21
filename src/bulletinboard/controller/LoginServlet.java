@@ -50,8 +50,8 @@ public class LoginServlet extends HttpServlet {
 			messages.add("ログインに失敗しました。");
 			session.setAttribute("errorMessages", messages);
 
-			//応用4
-			//session.setAttribute("account", account);
+			//保持
+			session.setAttribute("account", account);
 
 			response.sendRedirect("login");
 

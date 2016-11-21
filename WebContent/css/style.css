@@ -2,23 +2,30 @@ body {
 	background-color: white;
 }
 
+
+
 .main-contents {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	margin-left: 20px;
 	margin-right: 20px;
-	background-color: white;
+	background-color: #f0fbb5;
 	height: 100%;
 	width: 800px;
 }
 
+.select {
+	background-color:#fce081;
+}
+
 .tweet-box {
-	width: 780px;
+	width: 600px;
 	height: 56px;
 }
 
 .header {
 	text-align: right;
+	background-color: #ffffff;
 }
 
 .profile {

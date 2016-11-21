@@ -35,16 +35,13 @@ public class UserMessageDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
+			ps.setString(1, firstTime + " 00:00:00");
+			ps.setString(2, lastTime + " 23:59:59");
+
 			if(!StringUtils.isEmpty(category)){
-				ps.setString(1, firstTime);
-				ps.setString(2, lastTime);
 				ps.setString(3, category);
-			}else{
-				ps.setString(1, firstTime);
-				ps.setString(2, lastTime);
 			}
 
-			System.out.println(ps);
 
 			ResultSet rs = ps.executeQuery();
 			List<UserMessage> ret = toUserMessageList(rs);
@@ -126,6 +123,7 @@ public class UserMessageDao {
 				String name = rs.getString("name");
 				int messageId = rs.getInt("message_id");
 				int userId = rs.getInt("user_id");
+				int userBranchId = rs.getInt("user_branchId");
 				String title = rs.getString("title");
 				String category = rs.getString("category");
 				String text = rs.getString("text");
@@ -136,12 +134,14 @@ public class UserMessageDao {
 				message.setName(name);
 				message.setMessageId(messageId);
 				message.setUserId(userId);
+				message.setUserBranchId(userBranchId);
 				message.setTitle(title);
 				message.setCategory(category);
 				message.setText(text);
 				message.setInsertDate(insertDate);
 
 				ret.add(message);
+
 			}
 			return ret;
 		} finally {
