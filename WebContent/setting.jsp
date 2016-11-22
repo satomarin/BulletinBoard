@@ -52,9 +52,13 @@ function check(){
 </c:if>
 
 <div class="header">
-	<a href="signup">登録する</a>
+	<a href="signup">ユーザー新規登録</a>
+	<a href="./">ホーム画面</a>
 </div>
 
+
+<br />
+<br />
 <div class="main-contents">
 
 
@@ -63,14 +67,13 @@ function check(){
 <div class="users">
 	<div class="user">
 		<table border="1">
-
 			<tr>
-				<td>ユーザー名</td>
-				<td>ログインID</td>
-				<td>支店</td>
-				<td>部署・役職</td>
-				<td>アカウント停止</td>
-				<td>編集</td>
+				<td><b>ユーザー名</b></td>
+				<td><b>ログインID</b></td>
+				<td><b>支店</b></td>
+				<td><b>部署・役職</b></td>
+				<td><b>アカウント停止</b></td>
+				<td><b>編集</b></td>
 			</tr>
 
 			<c:forEach items="${users}" var="user">
@@ -96,12 +99,12 @@ function check(){
 					<form action="setting" method="post" onSubmit="return check()">
 						<input type="hidden" name="id" value="${user.id}"></input>
 						<c:if test ="${user.stopped == true}">
-							<input type="submit"  value="稼動" />停止中
+							<input type="submit"  value="稼動" /> 停止中
 							<input type="hidden" name="stopped" id="stopped" value="false"></input>
 
 						</c:if>
 						<c:if test = "${user.stopped == false}">
-							<input type="submit"  value="停止" />稼動中
+							<input type="submit"  value="停止" /> 稼動中
 							<input type="hidden" name="stopped" id="stopped" value="true"></input>
 						</c:if>
 					</form>
@@ -116,7 +119,9 @@ function check(){
 	</div>
 </div>
 
-<a href="./">戻る</a>
+<br />
+<br />
+
 
 <div class="copyright">Copyright(c)Sato Marin</div>
 </div>

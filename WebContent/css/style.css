@@ -1,133 +1,273 @@
-body {
-	background-color: white;
-}
 
+body {
+    background-color: white;
+}
 
 
 .main-contents {
-	margin-top: 0px;
-	margin-bottom: 0px;
-	margin-left: 20px;
-	margin-right: 20px;
-	background-color: #f0fbb5;
-	height: 100%;
-	width: 800px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #ffffff;
+    height: 100%;
+    width: 800px;
+}
+.select {
+	position: relative;
+	padding: .5em .75em;
+	background-color: #fff;
+	border: 1px solid #000000;
+	border-radius: 6px;
+}
+.select::before,
+.select::after {
+	position: absolute;
+	top: 100%;
+	left: 30px;
+	content: '';
+	height: 0;
+	width: 0;
+	border: 10px solid transparent;
+}
+.select::before {
+	border-top: 15px solid #000000;
+}
+.select::after {
+	margin-top: -2px;
+	border-top: 15px solid #fff;
 }
 
-.select {
-	background-color:#fce081;
+
+.signup {
+	margin-left: 20px;
+}
+
+.editing {
+	margin-left: 20px;
 }
 
 .tweet-box {
-	width: 600px;
-	height: 56px;
+    width: 700px;
+    height: 56px;
 }
-
 .header {
-	text-align: right;
-	background-color: #ffffff;
+    text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #ffffff;
 }
-
+.header1 {
+    text-align: left;
+    background-color: #ffffff;
+}
+.header2 {
+    text-align: right;
+    background-color: #ffffff;
+}
 .profile {
-	margin-top: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	margin-left: 10px;
-	height: 100px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    height: 100px;
 }
-
 .profile .profile-image {
-	float: left;
+    float: left;
 }
-
 .profile .name h2 {
-	font-size: 30px;
-	font-weight: bold;
-	line-height: 36px;
-	margin: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 10px;
+    margin: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
 }
-
 a.profile .account {
-	font-size: 13px;
-	line-height: 22px;
-}
 
+    font-size: 13px;
+    line-height: 22px;
+}
 .profile .description {
-	font-size: 13px;
-	line-height: 22px;
+    font-size: 13px;
+    line-height: 22px;
 }
-
 .form-area {
-	margin-top: 00px;
-	margin-right: 00px;
-	margin-bottom: 00px;
-	margin-left: 00px;
-	background-color: #ECECFF;
+    margin-top: 00px;
+    margin-right: 00px;
+    margin-bottom: 00px;
+    margin-left: 20px;
 }
 
-.message-icon {
-	border-bottom-style: ridge;
-	margin-top: 5px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-	margin-left: 5px;
-	height: 80px;
+.account-name {
+    font-weight: lighter;
+    color: gray;
 }
 
-.message-icon .icon {
-	margin-top: 1px;
-	margin-right: 1px;
-	margin-bottom: 1px;
-	margin-left: 1px;
-	float: left;
+.account-name .account{
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+}
+.account-name .account span{
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
 }
 
-.message-icon .text {
-	height: 40px;
+.account-name .name{
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+}
+.account-name .name span{
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
 }
 
-.message-icon .message {
-	margin-left: 60px;
+.message .title{
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
 }
-
-.message-icon .account-name {
-	margin-top: 1px;
-	margin-bottom: 5px;
-}
-
-.message-icon .account-name .account {
-	font-weight: bold;
-}
-
-.account-name .name {
-	font-weight: lighter;
-	color: gray;
-	font: small-caption;
+.message .title span{
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
 }
 
 .message .date {
-	font-weight: lighter;
-	color: gray;
-	font: small-caption;
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+}
+.message .date span{
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
+}
+
+.message .category {
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+	position: relative;
+}
+.message .category span {
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
+}
+
+
+.message .text {
+	word-wrap:break-word;
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+}
+.message .text span{
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
+}
+
+.comment .date {
+    padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+}
+.comment .date span{
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
+}
+
+.comment .account{
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+}
+.comment .account span{
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
+}
+
+.comment .name{
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+}
+.comment .name span{
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
+}
+
+.comment .text{
+	word-wrap:break-word;
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+}
+.comment .text span{
+	display: block;
+	margin-bottom: .2em;
+	color: #aaa;
+	font-size: .9em;
 }
 
 .copyright {
-	width: 250px;
-	margin: 0 auto;
+    width: 250px;
+    margin: 0 auto;
+}
+
+.messageComment {
+    padding: 1em;
+	border: 3px solid #000000;
+	border-radius: 3em .7em 2em .7em/.7em 2em .7em 3em;
+}
+
+.message {
+    border-width: 4px;
+    border-style: double;
+    border-color: blue;
+    background-color: white;
+    padding: 10px 15px;
+}
+
+
+.comment {
+    border-width: 4px;
+    border-style: double;
+    border-color: #8d34db;
+    background-color: white;
+    padding: 10px 15px;
+
+}
+.comments {
+    border-width: 4px;
+    border-style: double;
+    border-color: green;
+    background-color: white;
+    padding: 10px 15px;
+
 }
 
 label {
-	display: block;
+    display: block;
+}
+.errorMessages {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    color: red;
 }
 
-.errorMessages {
-	margin-top: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	margin-left: 10px;
-	color: red;
+.users table td{
+	padding: 5px 8px;
 }

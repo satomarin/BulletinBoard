@@ -27,10 +27,10 @@
 
 <form action="login" method="post"><br />
 
-	<label for="account">ログインID</label>
-	<input name="account" value="${account}" id="account"/> <br />
+	<label for="account">ログインID</label><br />
+	<input name="account" value="${account}" id="account"/> <br /><br />
 
-	<label for="password">パスワード</label>
+	<label for="password">パスワード</label><br />
 	<input name="password" type="password" id="password"/> <br />
 
 	<input type="submit" value="ログイン" /> <br />

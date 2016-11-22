@@ -26,6 +26,11 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
+<div class="header">
+	<a href="./">ホーム画面</a>
+	<br /><br />
+</div>
+
 <div class="form-area">
 	<form action="newMessage" method="post"><br />
 
@@ -45,7 +50,7 @@
 	</form>
 </div>
 </div>
+<br /><br />
 
-<a href="./">戻る</a>
 </body>
 </html>

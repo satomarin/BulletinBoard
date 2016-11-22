@@ -13,6 +13,10 @@
 
 <h2>ユーザー情報編集画面</h2>
 
+
+
+
+
 <div class="main-contents">
 <c:if test="${ not empty errorMessages }">
 	<div class="errorMessages">
@@ -25,8 +29,15 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
+<div class="header">
+	<a href="setting">ユーザー管理画面</a>
+</div>
 
+<div class="editing">
 <form action="editing" method="post"><br />
+
+
+	<br />
 
 	<input type="hidden" name="id" value="${editUser.id}"></input>
 
@@ -42,6 +53,8 @@
 	<label for="confirmationPassword">パスワード 確認用</label>
 	<input name="confirmationPassword" type="password" id="confirmationPassword"/> <br />
 
+
+	<c:if test="${editUser.id != users.id}">
 	<label for="branch_id">支店</label>
 	<select name="branch_id" size="1">
 		<c:forEach items="${ branches }" var="branch">
@@ -53,8 +66,10 @@
 			</c:if>
 		</c:forEach>
 	</select>
+	</c:if>
 	<br />
 
+	<c:if test="${editUser.id != users.id}">
 	<label for="department_id">部署・役職</label>
 	<select name="department_id" size="1">
 		<c:forEach items="${ departments }" var="department">
@@ -66,12 +81,23 @@
 			</c:if>
 		</c:forEach>
 	</select>
+	</c:if>
 	<br />
 
-	<input type="submit" value="登録" /> <br />
-	<a href="setting">戻る</a>
+	<c:if test="${editUser.id == users.id}">
+		<input type="hidden" name="branch_id" value="1"></input>
+		<input type="hidden" name="department_id" value="1"></input>
+	</c:if>
+
+	<br /><br />
+
+	<input type="submit" value="登録" />
+
+
+
 
 </form>
+</div>
 <div class="copyright">Copyright(c)Marin Sato</div>
 </div>
 </body>

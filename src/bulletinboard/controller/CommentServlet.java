@@ -50,6 +50,7 @@ public class CommentServlet extends HttpServlet {
 			new CommentService().register(comment);
 
 			response.sendRedirect("./");
+
 		} else {
 			session.setAttribute("errorMessages", comments);
 			request.setAttribute("comment",comment);

@@ -24,7 +24,13 @@
 	</div>
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
-<form action="signup" method="post"><br />
+
+<div class="header">
+	<a href="setting">ユーザー管理画面</a>
+</div>
+
+<div class="signup">
+<form action="signup" method="post"><br /><br />
 
 
 	<label for="account">ログインID（半角英数字6文字以上20文字以下）</label>
@@ -65,11 +71,13 @@
 		</c:forEach>
 	</select>
 	<br />
+	<br /><br />
 
 	<input type="submit" value="登録" /> <br />
-	<a href="setting">戻る</a>
+
 
 </form>
+</div>
 <div class="copyright">Copyright(c)Marin Sato</div>
 </div>
 </body>

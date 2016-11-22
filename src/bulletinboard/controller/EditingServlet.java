@@ -67,6 +67,9 @@ public class EditingServlet extends HttpServlet {
 
 		request.setAttribute("editUser", editUser);
 
+		User users = (User) session.getAttribute("loginUser");
+		request.setAttribute("users", users);
+
 		//jspファイルをgetする
 		request.getRequestDispatcher("editing.jsp").forward(request, response);
 
@@ -78,6 +81,7 @@ public class EditingServlet extends HttpServlet {
 
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
+
 
 
         User user = new User();
